@@ -13,11 +13,48 @@
     "isolatedModules": true,
     "noEmit": true,
 
+    /* Typing */
+    "types": [
+      "vite/client",
+      "@types/node",
+      "@types/express",
+      "@types/cookie-parser",
+      "@types/compression",
+      "@types/cors",
+      "@types/method-override",
+      "@types/lodash",
+    ],
+
+    /* Importing */
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["./app/*"],
+      "@ctrl/*": ["./app/controllers/*"],
+      "@models/*": ["./app/models/*"],
+      "@helpers/*": ["./app/helpers/*"],
+      "@routes/*": ["./app/routes/*"],
+      "@tasks/*": ["./app/tasks/*"],
+      "@tests/*": ["./app/tests/*"],
+      "@exceptions/*": ["./app/exceptions/*"],
+      "@middlewares/*": ["./app/middlewares/*"],
+      "@mailers/*": ["./app/mailers/*"],
+      "@config/*": ["./config/*"],
+      "@start/*": ["./start/*"],
+      "@validations/*": ["./app/validations/*"],
+      "@types": ["./app/types/index"],
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["app", "config", "start"],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
