@@ -2,7 +2,7 @@ ARG NODE_IMAGE=node:18.15.0-alpine
 
 FROM $NODE_IMAGE AS base
 
-LABEL maintainer="Op.Ag <opag.software@gmail.com>"
+LABEL maintainer="Otávio Paganotti <paganottiotavio@gmail.com>"
 
 RUN apk update
 
@@ -22,24 +22,14 @@ RUN yarn install --frozen-lockfile
 
 COPY --chown=node:node . .
 
-FROM dependencies AS build
+FROM dependencies AS production
 
-RUN node ace build --production
+RUN yarn build
 
-FROM base AS production
-
-ENV NODE_ENV=production
-
-ENV PORT=$PORT
+ENV PORT=$VITE_APP_PORT
 
 ENV HOST=0.0.0.0
 
-COPY --chown=node:node ./package*.json ./
+EXPOSE $VITE_APP_PORT
 
-RUN yarn install --frozen-lockfile
-
-COPY --chown=node:node --from=build /var/www/api/build .
-
-EXPOSE $PORT
-
-CMD [ "dumb-init", "node", "app.js" ]
+CMD [ "dumb-init", "node", "./build/app.js" ]

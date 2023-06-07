@@ -12,6 +12,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "outDir": "build",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "allowJs": true,
 
     /* Typing */
     "types": [
@@ -23,10 +27,10 @@
       "@types/cors",
       "@types/method-override",
       "@types/lodash",
+      "@types/debug",
     ],
 
     /* Importing */
-    "baseUrl": ".",
     "paths": {
       "@app/*": ["./app/*"],
       "@ctrl/*": ["./app/controllers/*"],
@@ -50,7 +54,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["app", "config", "start"],
+  "files": ["./env.d.ts"],
+  "include": ["app", "config", "start", "app.ts"],
   "exclude": ["node_modules"],
   "references": [
     {

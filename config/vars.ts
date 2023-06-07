@@ -13,6 +13,12 @@ const schema = Joi.object({
   VITE_REDIS_HOST: Joi.string(),
   VITE_REDIS_PORT: Joi.number(),
   VITE_REDIS_PASSWORD: Joi.string().optional(),
+
+  VITE_MONGO_INITDB_HOST: Joi.string().required(),
+  VITE_MONGO_INITDB_PORT: Joi.number().default(27017),
+  VITE_MONGO_INITDB_DATABASE: Joi.string().required(),
+  VITE_MONGO_INITDB_USERNAME: Joi.string().default('root'),
+  VITE_MONGO_INITDB_PASSWORD: Joi.string().default('root'),
 }).unknown().required();
 
 const {
@@ -29,7 +35,10 @@ export default {
   port: value.VITE_APP_PORT,
   apiVersion: value.VITE_API_VERSION,
   jwtSecret: value.VITE_JWT_SECRET,
-  prod: value.NODE_ENV === 'production',
+  prod: value.MODE === 'production',
   loggerName: '',
-  logLevel: ''
+  logLevel: '',
+  mongo: {
+    url: `mongodb://${value.VITE_MONGO_INITDB_USERNAME}:${value.VITE_MONGO_INITDB_PASSWORD}@${value.VITE_MONGO_INITDB_HOST}:${value.VITE_MONGO_INITDB_PORT}/${value.VITE_MONGO_INITDB_DATABASE}`,
+  }
 };

@@ -1,6 +1,9 @@
 import { loggers } from 'winston';
 import app from '@config/app';
 import config from '@config/vars';
+import debug from 'debug';
+
+debug('api:app');
 
 const logger = loggers.get(config.loggerName);
 
