@@ -1,5 +1,3 @@
-export * from './users';
-
 export interface ListResponse<T = unknown> {
   data: T[];
   pagination: {};

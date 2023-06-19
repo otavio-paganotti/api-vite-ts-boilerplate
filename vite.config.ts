@@ -54,6 +54,7 @@ export default (config) => {
         '@app': resolve(__dirname, './app'),
         '@ctrl': resolve(__dirname, './app/controllers'),
         '@models': resolve(__dirname, './app/models'),
+        '@db': resolve(__dirname, './app/database'),
         '@helpers': resolve(__dirname, './app/helpers'),
         '@routes': resolve(__dirname, './app/routes'),
         '@tasks': resolve(__dirname, './app/tasks'),

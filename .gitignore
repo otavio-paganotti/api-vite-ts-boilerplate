@@ -25,4 +25,6 @@ build
 *.lock
 *-lock.*
 
+data/
+
 .env

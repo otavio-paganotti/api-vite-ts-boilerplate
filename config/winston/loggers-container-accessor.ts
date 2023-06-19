@@ -20,7 +20,7 @@ const createLoggerWithOptions = (options: LoggerOptions) => {
           new (transports.Console)(),
       ],
       level: options.logLevel,
-      format: options.env === 'production'
+      format: options.env === 'prd'
           ? combine(timestamp(), productionFormatter(printf))
           : combine(timestamp(), colorize(), developmentFormatter(printf)),
   };

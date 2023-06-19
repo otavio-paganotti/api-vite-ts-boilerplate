@@ -4,7 +4,7 @@ import createLoggerWithOptions from '@config/winston/loggers-container-accessor'
 
 export interface LoggerOptions {
   name: string;
-  env: 'development' | 'production' | 'test',
+  env: 'dev' | 'prd' | 'hml' | 'test',
   logLevel: string;
 }
 

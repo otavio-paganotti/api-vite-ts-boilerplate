@@ -12,9 +12,12 @@ import { logger } from '@config/winston';
 import APIError from '@app/exceptions/APIError';
 import config from '@config/vars';
 import routes from '@start/routes';
+import dbConfig from '@config/db';
 
 // Define default HTTP logger instance (use default logger instance)
 const winstonInstance = logger;
+
+await dbConfig();
 
 const app = express();
 
@@ -41,7 +44,7 @@ app.use('/static', express.static('public'));
 winstonInstance.info('The application is stating...');
 
 // enable detailed API logging is dev env
-if (config.env === 'development') {
+if (config.env === 'dev') {
   expressWinston.requestWhitelist.push('body');
   expressWinston.responseWhitelist.push('body');
   app.use(expressWinston.logger({
@@ -87,7 +90,7 @@ if (config.env !== 'test') {
 // error handler, send stacktrace only during development
 app.use((err: APIError, _: Request, res: Response) => res.status(err.statusCode).json({
   message: err.isPublic ? err.message : httpStatus[err.statusCode],
-  stack: config.env === 'development' ? err.stack : {},
+  stack: config.env === 'dev' ? err.stack : {},
 }));
 
 export default app;

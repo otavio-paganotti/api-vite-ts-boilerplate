@@ -35,6 +35,7 @@
       "@app/*": ["./app/*"],
       "@ctrl/*": ["./app/controllers/*"],
       "@models/*": ["./app/models/*"],
+      "@db/*": ["./app/database/*"],
       "@helpers/*": ["./app/helpers/*"],
       "@routes/*": ["./app/routes/*"],
       "@tasks/*": ["./app/tasks/*"],

@@ -8,7 +8,8 @@ interface ImportMetaEnv {
   readonly VITE_REDIS_PASSWORD: string;
   readonly VITE_MONGO_INITDB_HOST: string;
   readonly VITE_MONGO_INITDB_PORT: number;
-  readonly VITE_MONGO_INITDB_DATABASE: string;
+  readonly VITE_MONGO_INITDB_DATABASE_OPTS: string;
+  readonly VITE_MONGO_INITDB_ENABLE_ADMIN: 'true' | 'false';
   readonly VITE_MONGO_INITDB_USERNAME: string;
   readonly VITE_MONGO_INITDB_PASSWORD: string;
 }

@@ -2,8 +2,8 @@ import Joi from 'joi';
 
 const schema = Joi.object({
   NODE_ENV: Joi.string()
-        .valid('development', 'production', 'test', 'provision')
-        .default('development'),
+        .valid('dev', 'prd', 'hml', 'test')
+        .default('dev'),
 
   VITE_APP_PORT: Joi.number().default(5000),
   VITE_API_VERSION: Joi.string().default('1').description('API Version'),
@@ -15,8 +15,8 @@ const schema = Joi.object({
   VITE_REDIS_PASSWORD: Joi.string().optional(),
 
   VITE_MONGO_INITDB_HOST: Joi.string().required(),
-  VITE_MONGO_INITDB_PORT: Joi.number().default(27017),
-  VITE_MONGO_INITDB_DATABASE: Joi.string().required(),
+  VITE_MONGO_INITDB_PORT: Joi.string().default('27017'),
+  VITE_MONGO_INITDB_DATABASE_OPTS: Joi.string().required().default(''),
   VITE_MONGO_INITDB_USERNAME: Joi.string().default('root'),
   VITE_MONGO_INITDB_PASSWORD: Joi.string().default('root'),
 }).unknown().required();
@@ -30,6 +30,13 @@ if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
 
+const getDBHostsAndPorts = () => {
+  const hosts = value.VITE_MONGO_INITDB_HOST.split(',');
+  const ports = value.VITE_MONGO_INITDB_PORT.split(',');
+
+  return hosts.map((host: string, index: number) => `${host}:${ports[index]}`).join(',');
+};
+
 export default {
   env: value.NODE_ENV,
   port: value.VITE_APP_PORT,
@@ -39,6 +46,6 @@ export default {
   loggerName: '',
   logLevel: '',
   mongo: {
-    url: `mongodb://${value.VITE_MONGO_INITDB_USERNAME}:${value.VITE_MONGO_INITDB_PASSWORD}@${value.VITE_MONGO_INITDB_HOST}:${value.VITE_MONGO_INITDB_PORT}/${value.VITE_MONGO_INITDB_DATABASE}`,
+    url: `mongodb://${value.VITE_MONGO_INITDB_USERNAME}:${value.VITE_MONGO_INITDB_PASSWORD}@${getDBHostsAndPorts()}${value.VITE_MONGO_INITDB_DATABASE_OPTS}`,
   }
 };
